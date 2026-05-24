@@ -1,4 +1,10 @@
-import { HistoryEntry } from "../page";
+interface HistoryEntry {
+  id: string;
+  action: "등록" | "수정" | "삭제";
+  participantName: string;
+  eventName: string;
+  at: string;
+}
 
 interface HistoryLogProps {
   entries: HistoryEntry[];
