@@ -314,9 +314,13 @@ export default function CompetitionDetailPage() {
                     </thead>
                     <tbody>
                       {sortedParticipants.map((p, idx) => {
-                        const scoredParticipants = sortedParticipants.filter((x) => scores[x.team]);
+                        const scoredParticipants = sortedParticipants.filter(
+                          (x) => scores[x.team]
+                        );
                         const allScores = scoredParticipants.map((x) => scores[x.team]);
-                        const rank = scores[p.team] ? getRank(scores[p.team], allScores) : null;
+                        const rank = scores[p.team]
+                          ? getRank(scores[p.team], allScores)
+                          : null;
 
                         return (
                           <tr
@@ -324,41 +328,54 @@ export default function CompetitionDetailPage() {
                             className={`border-b border-gray-800 ${
                               idx % 2 === 0 ? "bg-gray-950" : "bg-gray-900/50"
                             } ${
-                              isScoringMode && scores[p.team] ? "bg-green-950/30" : ""
+                              isScoringMode && scores[p.team]
+                                ? "bg-green-950/30"
+                                : ""
                             } hover:bg-gray-900 transition-colors`}
                           >
                             {isScoringMode && (
                               <td className="px-6 py-4 text-center font-bold text-yellow-400">
-                                {rank ? (
-                                  rank === 1 ? "🥇" : rank === 2 ? "🥈" : rank === 3 ? "🥉" : `${rank}위`
-                                ) : (
-                                  "-"
-                                )}
+                                {rank
+                                  ? rank === 1
+                                    ? "🥇"
+                                    : rank === 2
+                                    ? "🥈"
+                                    : rank === 3
+                                    ? "🥉"
+                                    : `${rank}위`
+                                  : "-"}
                               </td>
                             )}
-                          <td className="px-6 py-4 text-white font-medium">{p.no}</td>
-                          <td className="px-6 py-4 text-white">{p.nameEng}</td>
-                          <td className="px-6 py-4 text-gray-400">{p.dateOfBirth}</td>
-                          <td className="px-6 py-4 text-gray-400">
-                            {p.gender === "M" ? "남" : "여"}
-                          </td>
-                          {isScoringMode && (
-                            <td className="px-6 py-4 text-center">
-                              <input
-                                type="number"
-                                placeholder="점수"
-                                value={getTeamScore(p.team)}
-                                onChange={(e) =>
-                                  handleScoreChange(p.team, e.target.value)
-                                }
-                                min="0"
-                                step="0.5"
-                                className="w-20 px-3 py-2 rounded bg-gray-800 border border-gray-700 text-white text-center focus:border-green-500 focus:outline-none"
-                              />
+                            <td className="px-6 py-4 text-white font-medium">
+                              {p.no}
                             </td>
-                          )}
-                        </tr>
-                      ))}
+                            <td className="px-6 py-4 text-white">
+                              {p.nameEng}
+                            </td>
+                            <td className="px-6 py-4 text-gray-400">
+                              {p.dateOfBirth}
+                            </td>
+                            <td className="px-6 py-4 text-gray-400">
+                              {p.gender === "M" ? "남" : "여"}
+                            </td>
+                            {isScoringMode && (
+                              <td className="px-6 py-4 text-center">
+                                <input
+                                  type="number"
+                                  placeholder="점수"
+                                  value={getTeamScore(p.team)}
+                                  onChange={(e) =>
+                                    handleScoreChange(p.team, e.target.value)
+                                  }
+                                  min="0"
+                                  step="0.5"
+                                  className="w-20 px-3 py-2 rounded bg-gray-800 border border-gray-700 text-white text-center focus:border-green-500 focus:outline-none"
+                                />
+                              </td>
+                            )}
+                          </tr>
+                        );
+                      })}
                     </tbody>
                   </table>
                 ) : (
