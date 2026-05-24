@@ -323,7 +323,6 @@ export default function AppPage() {
   const [isScoringMode, setIsScoringMode] = useState<boolean>(false);
   const [scores, setScores] = useState<Record<number, number>>({});
   const [competitions, setCompetitions] = useState<Competition[]>(SAMPLE_DATA);
-  const [uploadStatus, setUploadStatus] = useState<string>("");
   const [uploadMessage, setUploadMessage] = useState<string>("");
 
   const selectedComp = competitions.find((c) => c.id === selectedCompId);
@@ -369,16 +368,65 @@ export default function AppPage() {
           return;
         }
 
-        const newParticipants: Participant[] = jsonData.map((row: any, idx: number) => ({
-          no: parseInt(row["번호"] || row["no"] || idx + 1),
-          country: row["국가"] || row["country"] || "korea",
-          nameKor: row["이름(한글)"] || row["nameKor"] || "",
-          nameEng: row["이름(영문)"] || row["nameEng"] || "",
-          dateOfBirth: row["생년월일"] || row["dateOfBirth"] || "",
-          gender: (row["성별"] || row["gender"] || "M").toUpperCase() as "M" | "F",
-          school: row["학교"] || row["school"] || "",
-          team: parseInt(row["조/팀"] || row["team"] || idx + 1),
-        }));
+        const newParticipants: Participant[] = jsonData.map((row: any, idx: number) => {
+          // 동적 헤더 감지 (한글 또는 영문)
+          const getField = (korName: string, engName: string) => {
+            return row[korName] || row[engName] || "";
+          };
+
+          // 팀 정보 추출: 여러 컬럼에서 팀/조 정보를 찾음
+          let teamInfo = "";
+          Object.keys(row).forEach((key) => {
+            if (
+              (row[key] && String(row[key]).includes("TEAM")) ||
+              (row[key] && String(row[key]).match(/^[A-D]$/))
+            ) {
+              teamInfo = String(row[key]).trim();
+            }
+          });
+
+          // 팀 번호 파싱
+          let teamNo = 1;
+          if (teamInfo.includes("TEAM A") || teamInfo === "A")
+            teamNo = 1;
+          else if (teamInfo.includes("TEAM B") || teamInfo === "B")
+            teamNo = 2;
+          else if (teamInfo.includes("TEAM C") || teamInfo === "C")
+            teamNo = 3;
+          else if (teamInfo.includes("TEAM D") || teamInfo === "D")
+            teamNo = 4;
+          else teamNo = parseInt(teamInfo) || idx + 1;
+
+          return {
+            no: parseInt(
+              row["No."] || row["번호"] || row["序号"] || idx + 1
+            ),
+            country:
+              row["Country"] ||
+              row["国家"] ||
+              row["국가"] ||
+              "korea",
+            nameKor:
+              row["Passport name"] ||
+              row["护照名称"] ||
+              row["이름"] ||
+              "",
+            nameEng: "",
+            dateOfBirth:
+              row["Date of Birth(yymmdd)"] ||
+              row["出生年月日"] ||
+              row["생년월일"] ||
+              "",
+            gender: (
+              row["Gender M/F"] ||
+              row["性别"] ||
+              row["성별"] ||
+              "M"
+            ).toUpperCase() as "M" | "F",
+            school: row["School"] || row["学校"] || row["학교"] || "",
+            team: teamNo,
+          };
+        });
 
         const updatedComps = competitions.map((comp) =>
           comp.id === selectedCompId
@@ -386,11 +434,16 @@ export default function AppPage() {
             : comp
         );
         setCompetitions(updatedComps);
-        setUploadMessage(`✅ ${newParticipants.length}명이 입력되었습니다.`);
+        setUploadMessage(
+          `✅ ${newParticipants.length}명이 입력되었습니다.`
+        );
         setScores({});
         setTimeout(() => setUploadMessage(""), 3000);
       } catch (error) {
-        setUploadMessage("❌ 파일을 읽을 수 없습니다. 형식을 확인해주세요.");
+        console.error("Excel upload error:", error);
+        setUploadMessage(
+          "❌ 파일을 읽을 수 없습니다. 형식을 확인해주세요."
+        );
         setTimeout(() => setUploadMessage(""), 3000);
       }
     };
