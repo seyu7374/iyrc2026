@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import * as XLSX from "xlsx";
 
 type Participant = {
   no: number;
@@ -321,8 +322,11 @@ export default function AppPage() {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [isScoringMode, setIsScoringMode] = useState<boolean>(false);
   const [scores, setScores] = useState<Record<number, number>>({});
+  const [competitions, setCompetitions] = useState<Competition[]>(SAMPLE_DATA);
+  const [uploadStatus, setUploadStatus] = useState<string>("");
+  const [uploadMessage, setUploadMessage] = useState<string>("");
 
-  const selectedComp = SAMPLE_DATA.find((c) => c.id === selectedCompId);
+  const selectedComp = competitions.find((c) => c.id === selectedCompId);
   const filteredParticipants = selectedComp?.participants.filter(
     (p) =>
       p.nameKor.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -345,6 +349,53 @@ export default function AppPage() {
 
   const getTeamScore = (teamNo: number) => {
     return scores[teamNo] ?? "";
+  };
+
+  const handleExcelUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const data = e.target?.result;
+        const workbook = XLSX.read(data, { type: "array" });
+        const sheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[sheetName];
+        const jsonData = XLSX.utils.sheet_to_json(worksheet);
+
+        if (!selectedComp) {
+          setUploadMessage("종목을 선택해주세요.");
+          return;
+        }
+
+        const newParticipants: Participant[] = jsonData.map((row: any, idx: number) => ({
+          no: parseInt(row["번호"] || row["no"] || idx + 1),
+          country: row["국가"] || row["country"] || "korea",
+          nameKor: row["이름(한글)"] || row["nameKor"] || "",
+          nameEng: row["이름(영문)"] || row["nameEng"] || "",
+          dateOfBirth: row["생년월일"] || row["dateOfBirth"] || "",
+          gender: (row["성별"] || row["gender"] || "M").toUpperCase() as "M" | "F",
+          school: row["학교"] || row["school"] || "",
+          team: parseInt(row["조/팀"] || row["team"] || idx + 1),
+        }));
+
+        const updatedComps = competitions.map((comp) =>
+          comp.id === selectedCompId
+            ? { ...comp, participants: newParticipants }
+            : comp
+        );
+        setCompetitions(updatedComps);
+        setUploadMessage(`✅ ${newParticipants.length}명이 입력되었습니다.`);
+        setScores({});
+        setTimeout(() => setUploadMessage(""), 3000);
+      } catch (error) {
+        setUploadMessage("❌ 파일을 읽을 수 없습니다. 형식을 확인해주세요.");
+        setTimeout(() => setUploadMessage(""), 3000);
+      }
+    };
+    reader.readAsArrayBuffer(file);
+    event.target.value = "";
   };
 
   // 팀전인 경우 팀별로 그룹핑
@@ -439,6 +490,34 @@ export default function AppPage() {
                 <span className="bg-gray-900/50 px-3 py-1 rounded">
                   {selectedComp.nameEng} • {selectedComp.ageGroup} • {selectedComp.type}
                 </span>
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* 엑셀 업로드 */}
+        <section className="py-6 px-8 border-b border-gray-800">
+          <div className="max-w-7xl mx-auto">
+            <h2 className="text-sm font-semibold text-gray-400 mb-3 uppercase tracking-wide">
+              참가자 정보 엑셀 업로드
+            </h2>
+            <div className="flex items-center gap-3">
+              <label className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-900 border border-gray-700 hover:border-gray-600 cursor-pointer transition-colors">
+                <span className="text-sm">📁 파일 선택</span>
+                <input
+                  type="file"
+                  accept=".xlsx,.xls,.csv"
+                  onChange={handleExcelUpload}
+                  className="hidden"
+                />
+              </label>
+              <span className="text-xs text-gray-500">
+                엑셀 형식: 번호 | 이름(한글) | 이름(영문) | 생년월일 | 성별 | 학교 | 조/팀
+              </span>
+            </div>
+            {uploadMessage && (
+              <div className={`mt-2 text-sm ${uploadMessage.includes("✅") ? "text-green-400" : "text-red-400"}`}>
+                {uploadMessage}
               </div>
             )}
           </div>
@@ -683,6 +762,89 @@ export default function AppPage() {
             )}
           </div>
         </section>
+
+        {/* 최종 순위 */}
+        {isScoringMode && (
+          <section className="py-8 px-8">
+            <div className="max-w-7xl mx-auto">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold text-white">🏆 최종 순위</h2>
+                <button
+                  onClick={() => window.print()}
+                  className="px-4 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 text-white text-sm transition-colors"
+                >
+                  🖨️ 인쇄
+                </button>
+              </div>
+
+              {selectedComp?.type === "개인전" ? (
+                // 개인전 순위
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-gray-800 bg-gray-950">
+                        <th className="px-6 py-3 text-left font-semibold text-gray-300">순위</th>
+                        <th className="px-6 py-3 text-left font-semibold text-gray-300">이름</th>
+                        <th className="px-6 py-3 text-left font-semibold text-gray-300">학교</th>
+                        <th className="px-6 py-3 text-right font-semibold text-gray-300">점수</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {sortedParticipants
+                        .filter((p) => scores[p.team])
+                        .map((p, idx) => (
+                          <tr key={p.no} className="border-b border-gray-800 bg-gray-900/30 hover:bg-gray-900">
+                            <td className="px-6 py-4 font-bold">
+                              {idx === 0 ? "🥇" : idx === 1 ? "🥈" : idx === 2 ? "🥉" : `${idx + 1}위`}
+                            </td>
+                            <td className="px-6 py-4 text-white font-medium">{p.nameKor}</td>
+                            <td className="px-6 py-4 text-gray-400 text-xs">{p.school}</td>
+                            <td className="px-6 py-4 text-right text-white font-bold">{scores[p.team]}</td>
+                          </tr>
+                        ))}
+                    </tbody>
+                  </table>
+                </div>
+              ) : (
+                // 팀전 순위
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-gray-800 bg-gray-950">
+                        <th className="px-6 py-3 text-left font-semibold text-gray-300">순위</th>
+                        <th className="px-6 py-3 text-left font-semibold text-gray-300">팀/조</th>
+                        <th className="px-6 py-3 text-left font-semibold text-gray-300">인원</th>
+                        <th className="px-6 py-3 text-right font-semibold text-gray-300">점수</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {sortedTeams
+                        ?.filter((g) => scores[g.teamNo])
+                        .map((group, idx) => (
+                          <tr key={group.teamNo} className="border-b border-gray-800 bg-gray-900/30 hover:bg-gray-900">
+                            <td className="px-6 py-4 font-bold">
+                              {idx === 0 ? "🥇" : idx === 1 ? "🥈" : idx === 2 ? "🥉" : `${idx + 1}위`}
+                            </td>
+                            <td className="px-6 py-4 text-white font-medium">{group.teamNo}조</td>
+                            <td className="px-6 py-4 text-gray-400">{group.members.length}명</td>
+                            <td className="px-6 py-4 text-right text-white font-bold">{scores[group.teamNo]}</td>
+                          </tr>
+                        ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+
+              {(selectedComp?.type === "개인전"
+                ? sortedParticipants.filter((p) => scores[p.team]).length === 0
+                : sortedTeams?.filter((g) => scores[g.teamNo]).length === 0) && (
+                <div className="text-center py-8 text-gray-400">
+                  <p>점수가 입력된 참가자가 없습니다.</p>
+                </div>
+              )}
+            </div>
+          </section>
+        )}
       </main>
 
       {/* 푸터 */}
