@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+:root {
+  /* Design.md 색상 팔레트 */
+  --white: #ffffff;
+  --black: #000000;
+  --text-dark: #323232;
+  --text-medium: #666666;
+  --gray-light: #fafafa;
+  --gray-border: #cccccc;
+  --blue-accent: #0000ee;
+
+  /* 기본 설정 */
+  --background: #ffffff;
+  --foreground: #000000;
+}
+
+@theme inline {
+  --color-white: var(--white);
+  --color-black: var(--black);
+  --color-gray-light: var(--gray-light);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-blue-accent: var(--blue-accent);
+  --font-sans: Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}

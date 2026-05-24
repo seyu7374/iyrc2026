@@ -1,0 +1,316 @@
+{
+  "colors": {
+    "backgrounds": [
+      "rgb(255, 255, 255)",
+      "rgba(255, 255, 255, 0.6)",
+      "rgb(250, 250, 250)",
+      "rgba(255, 255, 255, 0)",
+      "rgb(0, 0, 0)"
+    ],
+    "text": [
+      "rgb(0, 0, 0)",
+      "rgb(0, 0, 238)",
+      "rgb(50, 50, 50)",
+      "rgb(102, 102, 102)",
+      "rgb(255, 255, 255)",
+      "rgb(204, 204, 204)"
+    ],
+    "borders": [
+      "rgb(0, 0, 0)",
+      "rgb(0, 0, 238)",
+      "rgb(50, 50, 50)",
+      "rgb(102, 102, 102)",
+      "rgb(255, 255, 255)"
+    ]
+  },
+  "typography": {
+    "fontFamilies": [
+      "sans-serif",
+      "\"IBM Plex Mono\", monospace",
+      "\"IBM Plex Sans\", \"IBM Plex Sans Placeholder\", sans-serif",
+      "Inter, \"Inter Placeholder\", sans-serif",
+      "\"Playfair Display\", \"Playfair Display Placeholder\", serif"
+    ],
+    "fontSizes": [
+      "12px",
+      "16px",
+      "14px",
+      "13px",
+      "64px",
+      "40px",
+      "24px",
+      "32px",
+      "48px"
+    ],
+    "fontWeights": [
+      "400",
+      "500",
+      "700",
+      "600"
+    ]
+  },
+  "layout": {
+    "bodyWidth": 1280,
+    "bodyHeight": 3554,
+    "mainBg": "rgb(255, 255, 255)",
+    "mainPadding": "0px",
+    "mainMargin": "0px",
+    "firstSectionTag": "section",
+    "scrollHeight": 3554
+  },
+  "components": {
+    "buttons": {
+      "count": 0,
+      "sample": []
+    },
+    "links": {
+      "count": 26
+    },
+    "images": {
+      "count": 4
+    },
+    "inputs": {
+      "count": 0
+    }
+  },
+  "sections": [
+    {
+      "type": "div",
+      "classes": "framer-11nf4bl-container",
+      "hasHeading": false,
+      "headingText": "",
+      "preview": "ai dynamics\n\nHome\n\nSolutions\n\nCases\n\nBlog\n\nPricing\n\nAbout\n\nContact\n\nBuy Template"
+    },
+    {
+      "type": "div",
+      "classes": "framer-g2x4bs-container",
+      "hasHeading": false,
+      "headingText": "",
+      "preview": "ai dynamics"
+    },
+    {
+      "type": "div",
+      "classes": "framer-1ewyspw-container",
+      "hasHeading": false,
+      "headingText": "",
+      "preview": "Cases"
+    },
+    {
+      "type": "div",
+      "classes": "framer-f2rx1x-container",
+      "hasHeading": false,
+      "headingText": "",
+      "preview": ""
+    },
+    {
+      "type": "div",
+      "classes": "framer-t5mpq6-container",
+      "hasHeading": false,
+      "headingText": "",
+      "preview": "Buy template"
+    },
+    {
+      "type": "div",
+      "classes": "framer-146kwky-container",
+      "hasHeading": false,
+      "headingText": "",
+      "preview": ""
+    },
+    {
+      "type": "div",
+      "classes": "framer-cm3dv4-container",
+      "hasHeading": false,
+      "headingText": "",
+      "preview": ""
+    },
+    {
+      "type": "section",
+      "classes": "framer-1dhbng9",
+      "hasHeading": true,
+      "headingText": "Enhancing Inventory Management For BrightMart",
+      "preview": "Enhancing Inventory Management For BrightMart\n\n30\n\n30\n\n%\nIncrease in Sales\n\n20\n\n20\n\n%\nReduction in I"
+    },
+    {
+      "type": "div",
+      "classes": "framer-1ko0kaf-container",
+      "hasHeading": true,
+      "headingText": "%",
+      "preview": "30\n\n30\n\n%\nIncrease in Sales"
+    },
+    {
+      "type": "article",
+      "classes": "framer-3SFCy framer-fPIhr framer-XWSmf framer-ipiPX framer-nq8mf0 framer-v-nq8mf0",
+      "hasHeading": true,
+      "headingText": "%",
+      "preview": "30\n\n30\n\n%\nIncrease in Sales"
+    },
+    {
+      "type": "div",
+      "classes": "framer-ctogzu-container",
+      "hasHeading": false,
+      "headingText": "",
+      "preview": "30\n\n30"
+    },
+    {
+      "type": "div",
+      "classes": "framer-1tvz7z2-container",
+      "hasHeading": true,
+      "headingText": "%",
+      "preview": "20\n\n20\n\n%\nReduction in Inventory Costs"
+    },
+    {
+      "type": "article",
+      "classes": "framer-3SFCy framer-fPIhr framer-XWSmf framer-ipiPX framer-nq8mf0 framer-v-nq8mf0",
+      "hasHeading": true,
+      "headingText": "%",
+      "preview": "20\n\n20\n\n%\nReduction in Inventory Costs"
+    },
+    {
+      "type": "div",
+      "classes": "framer-ctogzu-container",
+      "hasHeading": false,
+      "headingText": "",
+      "preview": "20\n\n20"
+    },
+    {
+      "type": "div",
+      "classes": "framer-1tnews6-container",
+      "hasHeading": true,
+      "headingText": "%",
+      "preview": "15\n\n15\n\n%\nImprovement in Customer Satisfaction"
+    },
+    {
+      "type": "article",
+      "classes": "framer-3SFCy framer-fPIhr framer-XWSmf framer-ipiPX framer-nq8mf0 framer-v-nq8mf0",
+      "hasHeading": true,
+      "headingText": "%",
+      "preview": "15\n\n15\n\n%\nImprovement in Customer Satisfaction"
+    },
+    {
+      "type": "div",
+      "classes": "framer-ctogzu-container",
+      "hasHeading": false,
+      "headingText": "",
+      "preview": "15\n\n15"
+    },
+    {
+      "type": "div",
+      "classes": "framer-h0ph1k-container",
+      "hasHeading": true,
+      "headingText": "%",
+      "preview": "25\n\n25\n\n%\nReduction in Stockouts"
+    },
+    {
+      "type": "article",
+      "classes": "framer-3SFCy framer-fPIhr framer-XWSmf framer-ipiPX framer-nq8mf0 framer-v-nq8mf0",
+      "hasHeading": true,
+      "headingText": "%",
+      "preview": "25\n\n25\n\n%\nReduction in Stockouts"
+    },
+    {
+      "type": "div",
+      "classes": "framer-ctogzu-container",
+      "hasHeading": false,
+      "headingText": "",
+      "preview": "25\n\n25"
+    },
+    {
+      "type": "div",
+      "classes": "framer-11unbsr-container",
+      "hasHeading": false,
+      "headingText": "",
+      "preview": "Thanks to AI Dynamics, our operations have become significantly more efficient. Their AI-driven soft"
+    },
+    {
+      "type": "section",
+      "classes": "framer-175rm3i",
+      "hasHeading": true,
+      "headingText": "Read Next",
+      "preview": "Read Next\n\nOur mission is to empower businesses through AI technology, fostering growth, enhancing e"
+    },
+    {
+      "type": "div",
+      "classes": "framer-15zk8ap-container",
+      "hasHeading": true,
+      "headingText": "Read Next",
+      "preview": "Read Next\n\nOur mission is to empower businesses through AI technology, fostering growth, enhancing e"
+    },
+    {
+      "type": "div",
+      "classes": "framer-1b6p3oy-container",
+      "hasHeading": true,
+      "headingText": "Revolutionizing Customer Support for TechGear",
+      "preview": "Revolutionizing Customer Support for TechGear\n\nTechGear struggled with a high volume of customer inq"
+    },
+    {
+      "type": "div",
+      "classes": "framer-11qo7rz-container",
+      "hasHeading": false,
+      "headingText": "",
+      "preview": ""
+    },
+    {
+      "type": "div",
+      "classes": "framer-pojapg-container",
+      "hasHeading": true,
+      "headingText": "Securing Financial Data for SafeBank",
+      "preview": "Securing Financial Data for SafeBank\n\nSafeBank faced cyberattack threats compromising sensitive data"
+    },
+    {
+      "type": "div",
+      "classes": "framer-11qo7rz-container",
+      "hasHeading": false,
+      "headingText": "",
+      "preview": ""
+    },
+    {
+      "type": "div",
+      "classes": "framer-s5a7zi-container",
+      "hasHeading": false,
+      "headingText": "",
+      "preview": "Contact us today to learn more about our AI solutions and start your journey towards enhanced effici"
+    },
+    {
+      "type": "div",
+      "classes": "framer-81dbo9-container",
+      "hasHeading": false,
+      "headingText": "",
+      "preview": "Get in touch"
+    },
+    {
+      "type": "div",
+      "classes": "framer-1y7s270-container",
+      "hasHeading": false,
+      "headingText": "",
+      "preview": "View case studies"
+    },
+    {
+      "type": "div",
+      "classes": "framer-opbt3i-container",
+      "hasHeading": false,
+      "headingText": "",
+      "preview": "ai dynamics\n\nHome\n\nSolutions\n\nCases\n\nBlog\n\nPricing\n\nAbout\n\nContact\n\nGet this template\n\nBy Lauri Länn"
+    },
+    {
+      "type": "div",
+      "classes": "framer-1dvwr57-container",
+      "hasHeading": false,
+      "headingText": "",
+      "preview": "ai dynamics"
+    },
+    {
+      "type": "div",
+      "classes": "framer-1gb0eq1-container",
+      "hasHeading": false,
+      "headingText": "",
+      "preview": ""
+    },
+    {
+      "type": "div",
+      "classes": "framer-1222ywl-container",
+      "hasHeading": false,
+      "headingText": "",
+      "preview": ""
+    }
+  ]
+}

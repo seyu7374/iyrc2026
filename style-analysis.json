@@ -1,0 +1,34 @@
+{
+  "colors": {},
+  "fonts": {},
+  "layout": {},
+  "components": {},
+  "backgroundColor": "rgb(255, 255, 255)",
+  "textColor": "rgb(0, 0, 0)",
+  "colorsFound": [
+    "rgb(0, 0, 0)",
+    "rgb(255, 255, 255)",
+    "rgba(255, 255, 255, 0.6)",
+    "rgb(0, 0, 238)",
+    "rgb(50, 50, 50)",
+    "rgb(102, 102, 102)",
+    "rgb(250, 250, 250)",
+    "rgba(255, 255, 255, 0)",
+    "rgb(204, 204, 204)"
+  ],
+  "fontsFound": [
+    "\"Times New Roman\"",
+    "sans-serif",
+    "\"IBM Plex Mono\", monospace",
+    "\"IBM Plex Sans\", \"IBM Plex Sans Placeholder\", sans-serif",
+    "Inter, \"Inter Placeholder\", sans-serif",
+    "\"Playfair Display\", \"Playfair Display Placeholder\", serif"
+  ],
+  "structure": {
+    "hasHeader": true,
+    "hasHero": false,
+    "sectionCount": 6,
+    "buttonCount": 0,
+    "cardCount": 4
+  }
+}

@@ -1,0 +1,424 @@
+{
+  "colors": {
+    "backgrounds": [],
+    "text": [],
+    "accents": [],
+    "found": [
+      "rgb(255, 255, 255)",
+      "rgb(153, 153, 153)",
+      "rgb(0, 0, 0)",
+      "color(srgb 1 1 1 / 0.6)",
+      "rgb(204, 204, 204)",
+      "rgba(255, 255, 255, 0.1)",
+      "rgba(255, 255, 255, 0.08)",
+      "rgb(102, 102, 102)",
+      "rgba(255, 255, 255, 0.08) rgb(255, 255, 255) rgb(255, 255, 255)",
+      "rgba(255, 255, 255, 0.6)",
+      "rgb(17, 17, 17)",
+      "rgb(85, 85, 85)",
+      "rgb(240, 240, 240)"
+    ]
+  },
+  "typography": {
+    "fontFamilies": [
+      "inter, \"inter Fallback\"",
+      "walsheim, \"walsheim Fallback\""
+    ],
+    "fontSizes": [
+      "16px",
+      "15px",
+      "34px",
+      "24px",
+      "28px",
+      "14px",
+      "20px",
+      "48px",
+      "18px",
+      "13px"
+    ],
+    "fontWeights": [
+      "700",
+      "400",
+      "440",
+      "500",
+      "580",
+      "450"
+    ]
+  },
+  "layout": {
+    "bodyWidth": 1265,
+    "scrollHeight": 4366,
+    "mainBg": "rgb(0, 0, 0)"
+  },
+  "components": {
+    "buttons": [
+      {
+        "text": "Product",
+        "bgColor": "rgba(0, 0, 0, 0)",
+        "textColor": "color(srgb 1 1 1 / 0.6)",
+        "padding": "0px"
+      },
+      {
+        "text": "Teams",
+        "bgColor": "rgba(0, 0, 0, 0)",
+        "textColor": "color(srgb 1 1 1 / 0.6)",
+        "padding": "0px"
+      },
+      {
+        "text": "Resources",
+        "bgColor": "rgba(0, 0, 0, 0)",
+        "textColor": "rgb(255, 255, 255)",
+        "padding": "0px"
+      },
+      {
+        "text": "Community",
+        "bgColor": "rgba(0, 0, 0, 0)",
+        "textColor": "color(srgb 1 1 1 / 0.6)",
+        "padding": "0px"
+      },
+      {
+        "text": "Support",
+        "bgColor": "rgba(0, 0, 0, 0)",
+        "textColor": "color(srgb 1 1 1 / 0.6)",
+        "padding": "0px"
+      },
+      {
+        "text": "Enterprise",
+        "bgColor": "rgba(0, 0, 0, 0)",
+        "textColor": "color(srgb 1 1 1 / 0.6)",
+        "padding": "0px"
+      },
+      {
+        "text": "Pricing",
+        "bgColor": "rgba(0, 0, 0, 0)",
+        "textColor": "color(srgb 1 1 1 / 0.6)",
+        "padding": "0px"
+      },
+      {
+        "text": "Log in",
+        "bgColor": "rgba(0, 0, 0, 0)",
+        "textColor": "color(srgb 1 1 1 / 0.6)",
+        "padding": "0px"
+      },
+      {
+        "text": "Sign up",
+        "bgColor": "rgb(255, 255, 255)",
+        "textColor": "rgb(0, 0, 0)",
+        "padding": "6px 10px 7px"
+      },
+      {
+        "text": "Product",
+        "bgColor": "rgba(0, 0, 0, 0)",
+        "textColor": "color(srgb 1 1 1 / 0.6)",
+        "padding": "0px"
+      },
+      {
+        "text": "Teams",
+        "bgColor": "rgba(0, 0, 0, 0)",
+        "textColor": "color(srgb 1 1 1 / 0.6)",
+        "padding": "0px"
+      },
+      {
+        "text": "Resources",
+        "bgColor": "rgba(0, 0, 0, 0)",
+        "textColor": "color(srgb 1 1 1 / 0.6)",
+        "padding": "0px"
+      },
+      {
+        "text": "Community",
+        "bgColor": "rgba(0, 0, 0, 0)",
+        "textColor": "color(srgb 1 1 1 / 0.6)",
+        "padding": "0px"
+      },
+      {
+        "text": "Support",
+        "bgColor": "rgba(0, 0, 0, 0)",
+        "textColor": "color(srgb 1 1 1 / 0.6)",
+        "padding": "0px"
+      },
+      {
+        "text": "Enterprise",
+        "bgColor": "rgba(0, 0, 0, 0)",
+        "textColor": "color(srgb 1 1 1 / 0.6)",
+        "padding": "0px"
+      },
+      {
+        "text": "Pricing",
+        "bgColor": "rgba(0, 0, 0, 0)",
+        "textColor": "color(srgb 1 1 1 / 0.6)",
+        "padding": "0px"
+      },
+      {
+        "text": "Log in",
+        "bgColor": "rgba(0, 0, 0, 0)",
+        "textColor": "color(srgb 1 1 1 / 0.6)",
+        "padding": "0px"
+      },
+      {
+        "text": "Sign up",
+        "bgColor": "rgb(255, 255, 255)",
+        "textColor": "rgb(0, 0, 0)",
+        "padding": "6px 10px 7px"
+      },
+      {
+        "text": "Templates",
+        "bgColor": "rgba(0, 0, 0, 0)",
+        "textColor": "rgb(255, 255, 255)",
+        "padding": "0px"
+      },
+      {
+        "text": "Plugins",
+        "bgColor": "rgba(0, 0, 0, 0)",
+        "textColor": "color(srgb 1 1 1 / 0.6)",
+        "padding": "0px"
+      },
+      {
+        "text": "Components",
+        "bgColor": "rgba(0, 0, 0, 0)",
+        "textColor": "color(srgb 1 1 1 / 0.6)",
+        "padding": "0px"
+      },
+      {
+        "text": "Vectors",
+        "bgColor": "rgba(0, 0, 0, 0)",
+        "textColor": "color(srgb 1 1 1 / 0.6)",
+        "padding": "0px"
+      },
+      {
+        "text": "Tutorials",
+        "bgColor": "rgba(0, 0, 0, 0)",
+        "textColor": "color(srgb 1 1 1 / 0.6)",
+        "padding": "0px"
+      },
+      {
+        "text": "",
+        "bgColor": "rgba(0, 0, 0, 0)",
+        "textColor": "rgb(255, 255, 255)",
+        "padding": "0px"
+      },
+      {
+        "text": "Templates",
+        "bgColor": "rgba(0, 0, 0, 0)",
+        "textColor": "color(srgb 1 1 1 / 0.6)",
+        "padding": "0px"
+      },
+      {
+        "text": "Plugins",
+        "bgColor": "rgba(0, 0, 0, 0)",
+        "textColor": "color(srgb 1 1 1 / 0.6)",
+        "padding": "0px"
+      },
+      {
+        "text": "Components",
+        "bgColor": "rgba(0, 0, 0, 0)",
+        "textColor": "color(srgb 1 1 1 / 0.6)",
+        "padding": "0px"
+      },
+      {
+        "text": "Vectors",
+        "bgColor": "rgba(0, 0, 0, 0)",
+        "textColor": "color(srgb 1 1 1 / 0.6)",
+        "padding": "0px"
+      },
+      {
+        "text": "Tutorials",
+        "bgColor": "rgba(0, 0, 0, 0)",
+        "textColor": "color(srgb 1 1 1 / 0.6)",
+        "padding": "0px"
+      },
+      {
+        "text": "Preview",
+        "bgColor": "rgba(255, 255, 255, 0.1)",
+        "textColor": "rgb(255, 255, 255)",
+        "padding": "10px 14px"
+      },
+      {
+        "text": "Use for Free",
+        "bgColor": "rgb(255, 255, 255)",
+        "textColor": "rgb(0, 0, 0)",
+        "padding": "10px 14px"
+      },
+      {
+        "text": "",
+        "bgColor": "rgba(0, 0, 0, 0)",
+        "textColor": "rgb(153, 153, 153)",
+        "padding": "0px"
+      },
+      {
+        "text": "A11y Optimized",
+        "bgColor": "rgba(0, 0, 0, 0)",
+        "textColor": "rgb(255, 255, 255)",
+        "padding": "12px 12px 12px 16px"
+      },
+      {
+        "text": "Animations & Effects",
+        "bgColor": "rgba(0, 0, 0, 0)",
+        "textColor": "rgb(255, 255, 255)",
+        "padding": "12px 12px 12px 16px"
+      },
+      {
+        "text": "Automated SEO",
+        "bgColor": "rgba(0, 0, 0, 0)",
+        "textColor": "rgb(255, 255, 255)",
+        "padding": "12px 12px 12px 16px"
+      },
+      {
+        "text": "Built-in Analytics",
+        "bgColor": "rgba(0, 0, 0, 0)",
+        "textColor": "rgb(255, 255, 255)",
+        "padding": "12px 12px 12px 16px"
+      },
+      {
+        "text": "CMS",
+        "bgColor": "rgba(0, 0, 0, 0)",
+        "textColor": "rgb(255, 255, 255)",
+        "padding": "12px 12px 12px 16px"
+      },
+      {
+        "text": "Components",
+        "bgColor": "rgba(0, 0, 0, 0)",
+        "textColor": "rgb(255, 255, 255)",
+        "padding": "12px 12px 12px 16px"
+      },
+      {
+        "text": "Project Styles",
+        "bgColor": "rgba(0, 0, 0, 0)",
+        "textColor": "rgb(255, 255, 255)",
+        "padding": "12px 12px 12px 16px"
+      },
+      {
+        "text": "Sticky Scrolling",
+        "bgColor": "rgba(0, 0, 0, 0)",
+        "textColor": "rgb(255, 255, 255)",
+        "padding": "12px 12px 12px 16px"
+      },
+      {
+        "text": "Visual Breakpoints",
+        "bgColor": "rgba(0, 0, 0, 0)",
+        "textColor": "rgb(255, 255, 255)",
+        "padding": "12px 12px 12px 16px"
+      },
+      {
+        "text": "Report Template",
+        "bgColor": "rgba(0, 0, 0, 0)",
+        "textColor": "rgb(255, 255, 255)",
+        "padding": "0px"
+      },
+      {
+        "text": "Learn More",
+        "bgColor": "rgb(255, 255, 255)",
+        "textColor": "rgb(0, 0, 0)",
+        "padding": "10px 14px"
+      },
+      {
+        "text": "Okay",
+        "bgColor": "rgb(240, 240, 240)",
+        "textColor": "rgb(85, 85, 85)",
+        "padding": "10px 14px"
+      }
+    ],
+    "cards": [],
+    "sections": []
+  },
+  "structure": [
+    {
+      "index": 0,
+      "hasHeading": false,
+      "headingText": "",
+      "preview": "",
+      "buttonCount": 1,
+      "imageCount": 1,
+      "backgroundColor": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "index": 1,
+      "hasHeading": false,
+      "headingText": "",
+      "preview": "Details Nick Stepuk Updated 2 days ago 106.5K views",
+      "buttonCount": 0,
+      "imageCount": 1,
+      "backgroundColor": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "index": 2,
+      "hasHeading": false,
+      "headingText": "",
+      "preview": "Categories Agency Portfolio Animated Dark Graphic Design Grid Large Type Typogra",
+      "buttonCount": 0,
+      "imageCount": 0,
+      "backgroundColor": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "index": 3,
+      "hasHeading": false,
+      "headingText": "",
+      "preview": "Pages Home Projects About Blog 4 more",
+      "buttonCount": 0,
+      "imageCount": 0,
+      "backgroundColor": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "index": 4,
+      "hasHeading": false,
+      "headingText": "",
+      "preview": "Support About Templates Refund Policy Contact Creator Report Template",
+      "buttonCount": 1,
+      "imageCount": 0,
+      "backgroundColor": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "index": 5,
+      "hasHeading": true,
+      "headingText": "More from Nick Stepuk",
+      "preview": "More from Nick Stepuk See All →",
+      "buttonCount": 0,
+      "imageCount": 0,
+      "backgroundColor": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "index": 6,
+      "hasHeading": false,
+      "headingText": "",
+      "preview": "More from Nick Stepuk",
+      "buttonCount": 0,
+      "imageCount": 0,
+      "backgroundColor": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "index": 7,
+      "hasHeading": false,
+      "headingText": "",
+      "preview": "See All →",
+      "buttonCount": 0,
+      "imageCount": 0,
+      "backgroundColor": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "index": 8,
+      "hasHeading": true,
+      "headingText": "Related Templates",
+      "preview": "Related Templates See All →",
+      "buttonCount": 0,
+      "imageCount": 0,
+      "backgroundColor": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "index": 9,
+      "hasHeading": false,
+      "headingText": "",
+      "preview": "Related Templates",
+      "buttonCount": 0,
+      "imageCount": 0,
+      "backgroundColor": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "index": 10,
+      "hasHeading": false,
+      "headingText": "",
+      "preview": "See All →",
+      "buttonCount": 0,
+      "imageCount": 0,
+      "backgroundColor": "rgba(0, 0, 0, 0)"
+    }
+  ]
+}
