@@ -8,7 +8,7 @@ type Competition = {
   nameKor: string;
   nameEng: string;
   ageGroup: string;
-  type: "개인전" | "2vs2" | "팀전(3-5인)";
+  type: "개인전" | "2vs2" | "3vs3" | "팀전(3-5인)";
   participants: any[];
 };
 
@@ -19,7 +19,7 @@ export default function AppPage() {
     nameKor: "",
     nameEng: "",
     ageGroup: "초등부(8-13)",
-    type: "개인전" as "개인전" | "2vs2" | "팀전(3-5인)",
+    type: "개인전" as "개인전" | "2vs2" | "3vs3" | "팀전(3-5인)",
   });
   const [uploadMessage, setUploadMessage] = useState("");
 
@@ -238,13 +238,14 @@ export default function AppPage() {
                   onChange={(e) =>
                     setNewCompForm({
                       ...newCompForm,
-                      type: e.target.value as "개인전" | "2vs2" | "팀전(3-5인)",
+                      type: e.target.value as "개인전" | "2vs2" | "3vs3" | "팀전(3-5인)",
                     })
                   }
                   className="w-full px-3 py-2 rounded-lg bg-gray-800 border border-gray-700 text-white focus:border-green-500 focus:outline-none"
                 >
                   <option value="개인전">개인전</option>
                   <option value="2vs2">2vs2</option>
+                  <option value="3vs3">3vs3</option>
                   <option value="팀전(3-5인)">팀전(3-5인)</option>
                 </select>
               </div>

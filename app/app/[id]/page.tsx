@@ -21,7 +21,7 @@ type Competition = {
   nameKor: string;
   nameEng: string;
   ageGroup: string;
-  type: "개인전" | "2vs2" | "팀전(3-5인)";
+  type: "개인전" | "2vs2" | "3vs3" | "팀전(3-5인)";
   participants: Participant[];
 };
 
