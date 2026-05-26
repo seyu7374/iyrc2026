@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import * as XLSX from "xlsx";
 
 type Participant = {
   no: number;
@@ -124,6 +125,84 @@ export default function CompetitionDetailPage() {
     return uniqueScores.indexOf(score) + 1;
   };
 
+  const handleExcelUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const data = e.target?.result;
+        const workbook = XLSX.read(data, { type: "array" });
+        const sheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[sheetName];
+
+        const wsData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+
+        if (!wsData || wsData.length < 2) {
+          setUploadMessage("❌ 엑셀 파일이 비어있습니다.");
+          setTimeout(() => setUploadMessage(""), 3000);
+          return;
+        }
+
+        const dataRows = wsData.slice(1);
+
+        const newParticipants: Participant[] = dataRows
+          .filter((row: any) => row && row.length > 0)
+          .map((row: any, idx: number) => {
+            const no = parseInt(row[0]) || idx + 1;
+            const country = String(row[1] || "korea");
+            const nameEng = String(row[2] || "");
+            const dateOfBirth = String(row[3] || "");
+            const genderRaw = String(row[4] || "M");
+            const schoolTeam = String(row[5] || "");
+
+            let teamNo = 1;
+            const teamMatch = schoolTeam.match(/[A-D]|TEAM\s*[A-D]/i);
+            if (teamMatch) {
+              const letter = teamMatch[0].match(/[A-D]/i)?.[0]?.toUpperCase();
+              if (letter === "A") teamNo = 1;
+              else if (letter === "B") teamNo = 2;
+              else if (letter === "C") teamNo = 3;
+              else if (letter === "D") teamNo = 4;
+            } else {
+              teamNo = parseInt(schoolTeam) || idx + 1;
+            }
+
+            return {
+              no,
+              country,
+              nameKor: "",
+              nameEng,
+              dateOfBirth,
+              gender: genderRaw.toUpperCase().includes("F") ? "F" : "M",
+              school: schoolTeam,
+              team: teamNo,
+            };
+          });
+
+        const updatedComps = competitions.map((comp) =>
+          comp.id === compId
+            ? { ...comp, participants: newParticipants }
+            : comp
+        );
+        setCompetitions(updatedComps);
+        setSelectedComp(updatedComps.find((c) => c.id === compId) || null);
+        localStorage.setItem("iyrc-competitions", JSON.stringify(updatedComps));
+
+        setUploadMessage(`✅ ${newParticipants.length}명이 입력되었습니다.`);
+        setScores({});
+        setTimeout(() => setUploadMessage(""), 3000);
+      } catch (error) {
+        console.error("Excel upload error:", error);
+        setUploadMessage("❌ 파일을 읽을 수 없습니다. 형식을 확인해주세요.");
+        setTimeout(() => setUploadMessage(""), 3000);
+      }
+    };
+    reader.readAsArrayBuffer(file);
+    event.target.value = "";
+  };
+
   const validateScoresWithAI = async () => {
     if (!process.env.NEXT_PUBLIC_GEMINI_API_KEY) {
       setUploadMessage("❌ AI API 키가 설정되지 않았습니다.");
@@ -193,6 +272,29 @@ export default function CompetitionDetailPage() {
           </div>
         </section>
 
+
+        {/* 엑셀 업로드 (Phase 2) */}
+        <section className="py-6 px-8 border-b border-gray-800">
+          <div className="max-w-7xl mx-auto">
+            <h2 className="text-sm font-semibold text-gray-400 mb-3 uppercase tracking-wide">
+              참가자 정보 엑셀 업로드
+            </h2>
+            <div className="flex items-center gap-3">
+              <label className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-900 border border-gray-700 hover:border-gray-600 cursor-pointer transition-colors">
+                <span className="text-sm">📁 파일 선택</span>
+                <input
+                  type="file"
+                  accept=".xlsx,.xls,.csv"
+                  onChange={handleExcelUpload}
+                  className="hidden"
+                />
+              </label>
+              <span className="text-xs text-gray-500">
+                형식: No. | Country | Passport name | DOB | Gender | School/Team
+              </span>
+            </div>
+          </div>
+        </section>
 
         {/* 검색 및 AI 검증 */}
         <section className="py-6 px-8 border-b border-gray-800">
