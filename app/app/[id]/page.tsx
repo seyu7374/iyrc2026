@@ -147,6 +147,10 @@ export default function CompetitionDetailPage() {
 
         const dataRows = wsData.slice(1);
 
+        // Game No. 기반 팀 매핑 (고유한 Game No. = 고유한 팀)
+        const gameNoTeamMap: Record<string, number> = {};
+        let nextTeamNo = 1;
+
         const newParticipants: Participant[] = dataRows
           .filter((row: any) => row && row.length > 0)
           .map((row: any, idx: number) => {
@@ -156,22 +160,13 @@ export default function CompetitionDetailPage() {
             const dateOfBirth = String(row[3] || "");
             const genderRaw = String(row[4] || "M");
             const school = String(row[5] || "");
-            const gameNo = String(row[6] || "");
+            const gameNo = String(row[6] || "").trim(); // 정확한 Game No. 값
 
-            // Game No. 기반 팀 구성
-            let teamNo = 1;
-            const gameNoUpper = gameNo.toUpperCase();
-
-            if (gameNoUpper.includes("A")) teamNo = 1;
-            else if (gameNoUpper.includes("B")) teamNo = 2;
-            else if (gameNoUpper.includes("C")) teamNo = 3;
-            else if (gameNoUpper.includes("D")) teamNo = 4;
-            else if (gameNoUpper.includes("RS-01")) teamNo = 1;
-            else if (gameNoUpper.includes("RS-02")) teamNo = 2;
-            else if (gameNoUpper.includes("RS-03")) teamNo = 3;
-            else if (gameNoUpper.includes("RS-04")) teamNo = 4;
-            else if (gameNoUpper.includes("YES")) teamNo = 1;
-            else teamNo = 1; // 기본값 (개인전)
+            // 같은 Game No.는 같은 팀으로 자동 할당
+            if (!gameNoTeamMap[gameNo]) {
+              gameNoTeamMap[gameNo] = nextTeamNo++;
+            }
+            const teamNo = gameNoTeamMap[gameNo];
 
             return {
               no,
