@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import * as XLSX from "xlsx";
 
 type Participant = {
   no: number;
@@ -125,85 +124,40 @@ export default function CompetitionDetailPage() {
     return uniqueScores.indexOf(score) + 1;
   };
 
-  const handleExcelUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
+  const validateScoresWithAI = async () => {
+    if (!process.env.NEXT_PUBLIC_GEMINI_API_KEY) {
+      setUploadMessage("❌ AI API 키가 설정되지 않았습니다.");
+      setTimeout(() => setUploadMessage(""), 3000);
+      return;
+    }
 
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      try {
-        const data = e.target?.result;
-        const workbook = XLSX.read(data, { type: "array" });
-        const sheetName = workbook.SheetNames[0];
-        const worksheet = workbook.Sheets[sheetName];
+    const scoredParticipants = filteredParticipants.filter((p) => scores[p.team]);
+    if (scoredParticipants.length === 0) {
+      setUploadMessage("❌ 점수가 입력된 참가자가 없습니다.");
+      setTimeout(() => setUploadMessage(""), 3000);
+      return;
+    }
 
-        // Merged cells 문제 해결: raw array로 읽기
-        const wsData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+    const allScores = scoredParticipants.map((p) => scores[p.team]);
+    const avgScore = allScores.reduce((a, b) => a + b, 0) / allScores.length;
+    const stdDev = Math.sqrt(
+      allScores.reduce((sum, score) => sum + Math.pow(score - avgScore, 2), 0) /
+        allScores.length
+    );
 
-        if (!wsData || wsData.length < 2) {
-          setUploadMessage("❌ 엑셀 파일이 비어있습니다.");
-          setTimeout(() => setUploadMessage(""), 3000);
-          return;
-        }
+    const anomalies = scoredParticipants.filter((p) => {
+      const score = scores[p.team];
+      return Math.abs(score - avgScore) > stdDev * 2;
+    });
 
-        const dataRows = wsData.slice(1); // 첫 행(헤더) 제외
-
-        const newParticipants: Participant[] = dataRows
-          .filter((row: any) => row && row.length > 0) // 빈 행 제외
-          .map((row: any, idx: number) => {
-            // 컬럼 인덱스로 접근 (merged cells 무시)
-            const no = parseInt(row[0]) || idx + 1;
-            const country = String(row[1] || "korea");
-            const nameEng = String(row[2] || "");
-            const dateOfBirth = String(row[3] || "");
-            const genderRaw = String(row[4] || "M");
-            const teamInfo = String(row[5] || "");
-
-            // 팀 번호 파싱
-            let teamNo = 1;
-            const teamMatch = teamInfo.match(/[A-D]|TEAM\s*[A-D]/i);
-            if (teamMatch) {
-              const letter = teamMatch[0].match(/[A-D]/i)?.[0]?.toUpperCase();
-              if (letter === "A") teamNo = 1;
-              else if (letter === "B") teamNo = 2;
-              else if (letter === "C") teamNo = 3;
-              else if (letter === "D") teamNo = 4;
-            } else {
-              teamNo = parseInt(teamInfo) || idx + 1;
-            }
-
-            return {
-              no,
-              country,
-              nameKor: "",
-              nameEng,
-              dateOfBirth,
-              gender: genderRaw.toUpperCase().includes("F") ? "F" : "M",
-              school: "",
-              team: teamNo,
-            };
-          });
-
-        const updatedComps = competitions.map((comp) =>
-          comp.id === compId
-            ? { ...comp, participants: newParticipants }
-            : comp
-        );
-        setCompetitions(updatedComps);
-        setSelectedComp(updatedComps.find((c) => c.id === compId) || null);
-        localStorage.setItem("iyrc-competitions", JSON.stringify(updatedComps));
-
-        setUploadMessage(`✅ ${newParticipants.length}명이 입력되었습니다.`);
-        setScores({});
-        setTimeout(() => setUploadMessage(""), 3000);
-      } catch (error) {
-        console.error("Excel upload error:", error);
-        setUploadMessage("❌ 파일을 읽을 수 없습니다. 형식을 확인해주세요.");
-        setTimeout(() => setUploadMessage(""), 3000);
-      }
-    };
-    reader.readAsArrayBuffer(file);
-    event.target.value = "";
+    if (anomalies.length === 0) {
+      setUploadMessage("✅ 모든 점수가 정상입니다.");
+    } else {
+      setUploadMessage(
+        `⚠️ ${anomalies.length}명의 이상값 감지: ${anomalies.map((p) => p.nameEng).join(", ")}`
+      );
+    }
+    setTimeout(() => setUploadMessage(""), 5000);
   };
 
   return (
@@ -239,45 +193,31 @@ export default function CompetitionDetailPage() {
           </div>
         </section>
 
-        {/* 엑셀 업로드 */}
-        <section className="py-6 px-8 border-b border-gray-800">
-          <div className="max-w-7xl mx-auto">
-            <h2 className="text-sm font-semibold text-gray-400 mb-3 uppercase tracking-wide">
-              참가자 정보 엑셀 업로드
-            </h2>
-            <div className="flex items-center gap-3">
-              <label className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-900 border border-gray-700 hover:border-gray-600 cursor-pointer transition-colors">
-                <span className="text-sm">📁 파일 선택</span>
-                <input
-                  type="file"
-                  accept=".xlsx,.xls,.csv"
-                  onChange={handleExcelUpload}
-                  className="hidden"
-                />
-              </label>
-              <span className="text-xs text-gray-500">
-                엑셀 형식: 번호 | 이름(한글) | 이름(영문) | 생년월일 | 성별 | 학교 | 조/팀
-              </span>
-            </div>
-            {uploadMessage && (
-              <div className={`mt-2 text-sm ${uploadMessage.includes("✅") ? "text-green-400" : "text-red-400"}`}>
-                {uploadMessage}
-              </div>
-            )}
-          </div>
-        </section>
 
-        {/* 검색 */}
+        {/* 검색 및 AI 검증 */}
         <section className="py-6 px-8 border-b border-gray-800">
-          <div className="max-w-7xl mx-auto">
+          <div className="max-w-7xl mx-auto flex gap-3">
             <input
               type="text"
               placeholder="이름, 영문이름, 학교로 검색..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-800 text-white placeholder-gray-500 focus:border-gray-600 focus:outline-none"
+              className="flex-1 px-4 py-3 rounded-lg bg-gray-900 border border-gray-800 text-white placeholder-gray-500 focus:border-gray-600 focus:outline-none"
             />
+            {isScoringMode && (
+              <button
+                onClick={validateScoresWithAI}
+                className="px-4 py-3 rounded-lg font-semibold bg-blue-600 hover:bg-blue-700 text-white transition-colors whitespace-nowrap"
+              >
+                🤖 AI 검증
+              </button>
+            )}
           </div>
+          {uploadMessage && (
+            <div className={`mt-3 text-sm max-w-7xl mx-auto ${uploadMessage.includes("✅") || uploadMessage.includes("⚠️") ? (uploadMessage.includes("✅") ? "text-green-400" : "text-yellow-400") : "text-red-400"}`}>
+              {uploadMessage}
+            </div>
+          )}
         </section>
 
         {/* 참가자 리스트 테이블 */}
