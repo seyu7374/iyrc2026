@@ -64,15 +64,21 @@
 
 | 컬럼 | 필드명 | 설명 | 예시 |
 |------|--------|------|------|
-| A | No. | 참가자 번호 | 1, 2, 3, ... |
-| B | Country | 국가 | Korea, Japan, China |
-| C | Passport name | 영문 이름 | John Smith |
-| D | Date of Birth | 생년월일 | 2010-05-15 |
+| A | No. | 참가자 번호 | 1004, 1201, 1409 |
+| B | Country | 국가 | Korea, Algeria, India, Israel |
+| C | Passport name | 영문 이름 | John Smith, NISHAL SAI KRISHNACHAITANYA |
+| D | Date of Birth | 생년월일 | 2010-05-15, 2014-02-22 |
 | E | Gender | 성별 | M, F |
-| F | School/Team | 학교 또는 팀명 | Seoul High School |
+| F | 종목명/School | 학교 또는 종목 | Robot Soccer, X, YES |
+| G | Game No. | 게임/조 번호 | A, B, C, RS-01, RS-02, RS-03, YES, X |
+
+**팀 구성 규칙 (Game No. 기반):**
+- **개인전**: Game No. = "X" 또는 공백 → 모두 teamNo = 1
+- **팀전**: Game No. = "A"/"B"/"C"/"D" 또는 "RS-01"/"RS-02"/"RS-03" → 해당 팀으로 자동 그룹화
+- **YES**: Game No. = "YES" → teamNo = 1 (기본 팀)
 
 **주의사항:**
-- 첫 번째 행은 헤더 (위 필드명 사용)
+- 첫 번째 행은 헤더
 - 두 번째 행부터 데이터 입력
 - 셀 병합 가능 (자동 처리됨)
 - .xlsx 또는 .xls 형식 지원

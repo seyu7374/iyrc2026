@@ -155,19 +155,23 @@ export default function CompetitionDetailPage() {
             const nameEng = String(row[2] || "");
             const dateOfBirth = String(row[3] || "");
             const genderRaw = String(row[4] || "M");
-            const schoolTeam = String(row[5] || "");
+            const school = String(row[5] || "");
+            const gameNo = String(row[6] || "");
 
+            // Game No. 기반 팀 구성
             let teamNo = 1;
-            const teamMatch = schoolTeam.match(/[A-D]|TEAM\s*[A-D]/i);
-            if (teamMatch) {
-              const letter = teamMatch[0].match(/[A-D]/i)?.[0]?.toUpperCase();
-              if (letter === "A") teamNo = 1;
-              else if (letter === "B") teamNo = 2;
-              else if (letter === "C") teamNo = 3;
-              else if (letter === "D") teamNo = 4;
-            } else {
-              teamNo = parseInt(schoolTeam) || idx + 1;
-            }
+            const gameNoUpper = gameNo.toUpperCase();
+
+            if (gameNoUpper.includes("A")) teamNo = 1;
+            else if (gameNoUpper.includes("B")) teamNo = 2;
+            else if (gameNoUpper.includes("C")) teamNo = 3;
+            else if (gameNoUpper.includes("D")) teamNo = 4;
+            else if (gameNoUpper.includes("RS-01")) teamNo = 1;
+            else if (gameNoUpper.includes("RS-02")) teamNo = 2;
+            else if (gameNoUpper.includes("RS-03")) teamNo = 3;
+            else if (gameNoUpper.includes("RS-04")) teamNo = 4;
+            else if (gameNoUpper.includes("YES")) teamNo = 1;
+            else teamNo = 1; // 기본값 (개인전)
 
             return {
               no,
@@ -176,7 +180,7 @@ export default function CompetitionDetailPage() {
               nameEng,
               dateOfBirth,
               gender: genderRaw.toUpperCase().includes("F") ? "F" : "M",
-              school: schoolTeam,
+              school,
               team: teamNo,
             };
           });
@@ -290,7 +294,7 @@ export default function CompetitionDetailPage() {
                 />
               </label>
               <span className="text-xs text-gray-500">
-                형식: No. | Country | Passport name | DOB | Gender | School/Team
+                형식: No. | Country | Passport name | DOB | Gender | School | Game No.(팀 구분)
               </span>
             </div>
           </div>
