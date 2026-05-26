@@ -151,6 +151,21 @@ export default function CompetitionDetailPage() {
         const gameNoTeamMap: Record<string, number> = {};
         let nextTeamNo = 1;
 
+        // 먼저 모든 행을 스캔하여 Game No. 맵 구성
+        dataRows.forEach((row: any) => {
+          if (row && row.length > 0) {
+            const gameNo = String(row[6] || "").trim();
+            if (gameNo && !gameNoTeamMap[gameNo]) {
+              gameNoTeamMap[gameNo] = nextTeamNo++;
+            }
+          }
+        });
+
+        // 공백 Game No. 처리 (맨 마지막 팀번호 할당)
+        if (!gameNoTeamMap[""]) {
+          gameNoTeamMap[""] = nextTeamNo++;
+        }
+
         const newParticipants: Participant[] = dataRows
           .filter((row: any) => row && row.length > 0)
           .map((row: any, idx: number) => {
@@ -160,13 +175,9 @@ export default function CompetitionDetailPage() {
             const dateOfBirth = String(row[3] || "");
             const genderRaw = String(row[4] || "M");
             const school = String(row[5] || "");
-            const gameNo = String(row[6] || "").trim(); // 정확한 Game No. 값
+            const gameNo = String(row[6] || "").trim();
 
-            // 같은 Game No.는 같은 팀으로 자동 할당
-            if (!gameNoTeamMap[gameNo]) {
-              gameNoTeamMap[gameNo] = nextTeamNo++;
-            }
-            const teamNo = gameNoTeamMap[gameNo];
+            const teamNo = gameNoTeamMap[gameNo] || 1;
 
             return {
               no,
